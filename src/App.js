@@ -1,12 +1,7 @@
-import logo from './logo.svg';
-import './App.css';
+import Body from './components/Body';
 
 function App() {
-  return (
-    <div className = "text-7xl text-center text-green-400">
-      Let's make a new react app
-    </div>
-  );
+  return  <Body/>;
 }
 
 export default App;

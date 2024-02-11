@@ -69,3 +69,52 @@ This section has moved here: [https://facebook.github.io/create-react-app/docs/d
 
 This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
 # ChatFlix
+
+
+
+
+
+
+
+
+
+
+i) install homebrew
+ii) brew install mysql  /// install mysql
+iii) brew services start mysql /// start mysql server on your local
+iv) mysql_secure_installation /// one time process where we need to configure some settings
+v) mysql -u root -p /// access MySQL by running the following command in Terminal
+vi) CREATE DATABASE YOUR_DB_NAME;
+vii) USE DATABASE YOUR_DB_NAME; /// create you table inside db and relations
+
+viii)
+CREATE TABLE users (
+    user_id INT AUTO_INCREMENT PRIMARY KEY,
+    username VARCHAR(255) NOT NULL,
+    password VARCHAR(255) NOT NULL
+);
+
+CREATE TABLE profile (
+    profile_id INT AUTO_INCREMENT PRIMARY KEY,
+    user_id INT,
+    full_name VARCHAR(255) NOT NULL,
+    email VARCHAR(255) NOT NULL,
+    bio TEXT,
+    FOREIGN KEY (user_id) REFERENCES users(user_id)
+);
+
+ix) /// Define foreign keys
+
+USE social_network;
+
+START TRANSACTION;
+
+INSERT INTO users (username, password) VALUES ('john_doe', 'hashed_password');
+
+-- Get the last inserted user_id
+SET @last_user_id = LAST_INSERT_ID();
+
+INSERT INTO profile (user_id, full_name, email, bio) VALUES (@last_user_id, 'John Doe', 'john@example.com', 'A passionate individual.');
+
+-- Commit the transaction
+COMMIT;
