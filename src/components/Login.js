@@ -1,16 +1,22 @@
 import React, { useRef, useState } from 'react'
 import Header from './Header'
 import { checkValidData } from '../utils/validate';
-import { createUserWithEmailAndPassword, signInWithEmailAndPassword } from "firebase/auth";
+import { createUserWithEmailAndPassword, signInWithEmailAndPassword, updateProfile } from "firebase/auth";
 import { auth } from "../utils/firebase"
+import { useNavigate } from 'react-router-dom';
+import { useDispatch } from 'react-redux';
+import { addUser } from '../utils/userSlice';
 
 const Login = () => {
 
   const [isSignInForm, setIsSignInForm] = useState(true);
-  const [errorMessage, setErrorMessage] = useState(null)
+  const [errorMessage, setErrorMessage] = useState(null);
+  const navigate = useNavigate();
+  const dispatch = useDispatch();
 
   const email = useRef(null);
   const password = useRef(null);
+  const name = useRef(null);
 
   const toggleSignInForm = () => {
     setIsSignInForm(!isSignInForm)
@@ -28,7 +34,19 @@ const Login = () => {
       createUserWithEmailAndPassword(auth, email.current.value, password.current.value)
         .then((userCredential) => {
           const user = userCredential.user;
-          console.log(user);
+
+          updateProfile(user, {
+            displayName: name.current.value, 
+            photoURL: "https://occ-0-1492-3662.1.nflxso.net/dnm/api/v6/vN7bi_My87NPKvsBoib006Llxzg/AAAABStlS0MPUGcy6Ovyeia-3ddnnXNb2Lri4P4H4QCFuR_yaGs0umyqHUDOZcOBKF8MFUGHX07txAW70z7wq_S9AKGQ_MixrLQ.png?r=a4b"
+          }).then(() => {
+            const {uid, email, displayName, photoURL} = auth.currentUser;
+            dispatch(addUser({uid: uid, email: email, displayName: displayName, photoURL: photoURL}));
+            navigate("/browse")
+          }).catch((error) => {
+            setErrorMessage(errorMessage)
+          });
+
+          navigate("/browse")
         })
         .catch((error) => {
           const errorCode = error.code;
@@ -41,11 +59,12 @@ const Login = () => {
       .then((userCredential) => {
         const user = userCredential.user;
         console.log(user)
+        navigate("/browse")
       })
       .catch((error) => {
         const errorCode = error.code;
         const errorMessage = error.message;
-        setErrorMessage(errorCode + " - " + errorMessage)
+        setErrorMessage("User not found")
       });
     }
   }
@@ -66,7 +85,7 @@ const Login = () => {
         <h1 className='font-bold text-3xl py-4'>
           {isSignInForm ? "Sign In" : "Sign Up"}
         </h1>
-        {!isSignInForm && <input type = "text" placeholder="Full Name" className = "p-4 my-4 w-full bg-gray-700"/>}
+        {!isSignInForm && <input ref = {name}  type = "text" placeholder="Full Name" className = "p-4 my-4 w-full bg-gray-700"/>}
         <input
           ref = {email} 
           type = "text" 

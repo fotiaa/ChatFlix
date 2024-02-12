@@ -118,3 +118,18 @@ INSERT INTO profile (user_id, full_name, email, bio) VALUES (@last_user_id, 'Joh
 
 -- Commit the transaction
 COMMIT;
+
+
+
+Tailwind,
+header,
+routing,
+signIn/signUp form,
+form validation,
+useRef Hook,
+firebase setup,
+deploying our app to prod,
+create signUp user account,
+implement signIn user api,
+created redux store with user slice,
+implemented sign out,
