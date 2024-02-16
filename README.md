@@ -145,5 +145,11 @@ planning for main container and secondary container,
 fetched trailer for trailer video,
 update store with trailer video data,
 embedded the youtube video and made it autoplay on mute,
-tailwind classes to make container look awesome
+tailwind classes to make container look awesome,
+Built Secondary container with movie list and movie card,
+Used TMDB image cdn url,
+Made the browse page with Tailwind CSS,
+Custom hook for popular movies,
+GPT search feature,
+
 

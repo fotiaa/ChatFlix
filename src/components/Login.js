@@ -5,7 +5,7 @@ import { createUserWithEmailAndPassword, signInWithEmailAndPassword, updateProfi
 import { auth } from "../utils/firebase"
 import { useDispatch } from 'react-redux';
 import { addUser } from '../utils/userSlice';
-import { HEADER, PHOTO_URL } from '../utils/constants';
+import { BG_URL, PHOTO_URL } from '../utils/constants';
 
 const Login = () => {
 
@@ -70,7 +70,7 @@ const Login = () => {
       <Header/>
       <div className='absolute w-screen h-screen'>
         <img 
-          src = {HEADER}
+          src = {BG_URL}
           alt = "background"
         />
       </div>
