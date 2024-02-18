@@ -151,5 +151,7 @@ Used TMDB image cdn url,
 Made the browse page with Tailwind CSS,
 Custom hook for popular movies,
 GPT search feature,
+GPT search bar,
+Multi-language feature in our app,
 
 
